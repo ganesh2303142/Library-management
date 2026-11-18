@@ -1,0 +1,47 @@
+# Library Management Application
+
+A Node.js and Express library catalog with JSON-file storage, a responsive web interface, and automated Jenkins builds.
+
+## Features
+
+- Add, edit, delete, search, and filter books
+- Borrow and return books
+- Dashboard totals for total, available, and borrowed books
+- REST API and automated health checks
+- Jenkins manual, GitHub push, and scheduled builds
+
+## Run locally
+
+```powershell
+npm install
+npm start
+```
+
+Open http://localhost:3000.
+
+## Tests
+
+```powershell
+npm test
+```
+
+## Docker
+
+```powershell
+docker build -t library-management .
+docker run --rm -p 3000:3000 library-management
+```
+
+## Jenkins setup
+
+1. Install Jenkins on Windows and ensure Node.js is available in `PATH`.
+2. Install the **GitHub**, **GitHub Branch Source**, and **Pipeline** plugins.
+3. In GitHub, open **Settings > Webhooks > Add webhook**.
+4. Set the payload URL to `http://<jenkins-host>:8080/github-webhook/`, choose `application/json`, and select **Just the push event**.
+5. In Jenkins, create a **Pipeline** job and set **Pipeline from SCM** to the GitHub repository.
+6. Set the script path to `Jenkinsfile`.
+7. Jenkins will build on GitHub pushes, on demand with **Build with Parameters**, and nightly via `H 2 * * *`.
+
+For GitHub push triggers, Jenkins must be reachable from GitHub or a Jenkins-to-GitHub tunnel such as ngrok. If webhook access is not possible, use SCM polling instead.
+
+If Jenkins is behind a firewall, set the repository credential in the Pipeline SCM configuration and add a private credential only when the repository is private.

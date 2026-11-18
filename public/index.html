@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><p class="eyebrow">City Library</p><h1>Catalog & Circulation</h1></div>
+      <button id="newBookButton" class="primary">Add book</button>
+    </header>
+
+    <section class="stats" aria-label="Library statistics">
+      <article><span>Total books</span><strong id="totalBooks">0</strong></article>
+      <article><span>Available</span><strong id="availableBooks">0</strong></article>
+      <article><span>Borrowed</span><strong id="borrowedBooks">0</strong></article>
+    </section>
+
+    <section class="catalog">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Search title, author, or ISBN">
+        <select id="statusFilter" aria-label="Filter status">
+          <option value="">All statuses</option>
+          <option value="available">Available</option>
+          <option value="borrowed">Borrowed</option>
+        </select>
+      </div>
+      <div id="bookGrid" class="grid"></div>
+    </section>
+  </main>
+
+  <dialog id="bookDialog">
+    <form id="bookForm">
+      <h2 id="dialogTitle">Add a book</h2>
+      <label>Title<input name="title" required></label>
+      <label>Author<input name="author" required></label>
+      <label>ISBN<input name="isbn" required></label>
+      <div class="actions"><button type="button" id="cancelButton" class="secondary">Cancel</button><button class="primary">Save</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="borrowDialog">
+    <form id="borrowForm">
+      <h2>Borrow book</h2>
+      <input type="hidden" name="id">
+      <label>Borrower name<input name="borrower" required></label>
+      <div class="actions"><button type="button" id="borrowCancel" class="secondary">Cancel</button><button class="primary">Borrow</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
